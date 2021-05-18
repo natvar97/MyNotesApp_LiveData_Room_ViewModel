@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyNotesApp</string>
+    <string name="add_new_note">Add New Note</string>
+    <string name="hint_title">title</string>
+    <string name="hint_comment">comment</string>
+    <string name="hint_description">description</string>
+    <string name="btn_text_save">save</string>
+</resources>

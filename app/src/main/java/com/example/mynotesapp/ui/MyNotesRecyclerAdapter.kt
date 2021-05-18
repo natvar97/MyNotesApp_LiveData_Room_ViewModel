@@ -6,18 +6,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotesapp.R
-import com.example.mynotesapp.entity.Note
+import com.example.mynotesapp.entity.MyNote
 
-class NotesRecyclerAdapter : RecyclerView.Adapter<NotesRecyclerAdapter.NotesViewHolder>() {
+class MyNotesRecyclerAdapter : RecyclerView.Adapter<MyNotesRecyclerAdapter.NotesViewHolder>() {
 
-    private var notesList = ArrayList<Note>()
+    private var notesList = ArrayList<MyNote>()
 
     inner class NotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
         val tvDescription = itemView.findViewById<TextView>(R.id.tv_description)
         val tvComment = itemView.findViewById<TextView>(R.id.tv_comment)
 
-        fun bind(note: Note) {
+        fun bind(note: MyNote) {
             tvTitle.text = note.title
             tvDescription.text = note.description
             tvComment.text = note.comment
@@ -39,7 +39,7 @@ class NotesRecyclerAdapter : RecyclerView.Adapter<NotesRecyclerAdapter.NotesView
         return notesList.size
     }
 
-    fun saveData(notes: List<Note>) {
+    fun saveData(notes: List<MyNote>) {
         notesList.addAll(notes)
         notifyDataSetChanged()
     }

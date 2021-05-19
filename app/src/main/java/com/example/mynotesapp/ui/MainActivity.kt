@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotesapp.MyNotesApplication
 import com.example.mynotesapp.R
+import com.example.mynotesapp.databinding.ActivityMainBinding
 import com.example.mynotesapp.entity.MyNote
 import com.example.mynotesapp.viewmodel.MyNotesViewModel
 import com.example.mynotesapp.viewmodel.MyNotesViewModelFactory
@@ -18,27 +19,32 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
+//    private lateinit var recyclerView: RecyclerView
     private lateinit var notesRecyclerAdapter: MyNotesRecyclerAdapter
     private val notesViewModel: MyNotesViewModel by viewModels {
         MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
     }
-    private lateinit var fab: FloatingActionButton
-    private lateinit var btnNews: Button
+
+    private lateinit var mBinding : ActivityMainBinding
+//    private lateinit var fab: FloatingActionButton
+//    private lateinit var btnNews: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
 
-        fab = findViewById(R.id.fab)
-        btnNews = findViewById(R.id.btn_news)
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+
+//        fab = findViewById(R.id.fab)
+//        btnNews = findViewById(R.id.btn_news)
         attachRecyclerView()
 
-        fab.setOnClickListener {
+        mBinding.fab.setOnClickListener {
             openAddNewNotePage()
         }
 
-        btnNews.setOnClickListener {
+        mBinding.btnNews.setOnClickListener {
             openNewsPage()
         }
 
@@ -55,10 +61,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun attachRecyclerView() {
-        recyclerView = findViewById(R.id.recyclerView)
+//        recyclerView = findViewById(R.id.recyclerView)
         notesRecyclerAdapter = MyNotesRecyclerAdapter(this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = notesRecyclerAdapter
+        mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
+        mBinding.recyclerView.adapter = notesRecyclerAdapter
     }
 
     private fun openAddNewNotePage() {

@@ -2,15 +2,12 @@ package com.example.mynotesapp.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotesapp.Constants
 import com.example.mynotesapp.R
+import com.example.mynotesapp.databinding.NoteListItemBinding
 import com.example.mynotesapp.entity.MyNote
 
 class MyNotesRecyclerAdapter(private val activity: Activity) :
@@ -18,12 +15,13 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
 
     private var notesList = ArrayList<MyNote>()
 
-    inner class NotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvTitle = itemView.findViewById<TextView>(R.id.tv_title)
-        val tvDescription = itemView.findViewById<TextView>(R.id.tv_description)
-        val tvComment = itemView.findViewById<TextView>(R.id.tv_comment)
-        val ivEdit = itemView.findViewById<ImageView>(R.id.iv_edit)
-        val ivDelete = itemView.findViewById<ImageView>(R.id.iv_delete)
+    inner class NotesViewHolder(itemView: NoteListItemBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
+        val tvTitle = itemView.tvTitle
+        val tvDescription = itemView.tvDescription
+        val tvComment = itemView.tvComment
+        val ivEdit = itemView.ivEdit
+        val ivDelete = itemView.ivDelete
 
         fun bind(note: MyNote) {
             tvTitle.text = note.title
@@ -34,8 +32,7 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.note_list_item, parent, false)
+        val view = NoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
         return NotesViewHolder(view)
     }
 

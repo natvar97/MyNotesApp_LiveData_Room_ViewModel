@@ -14,8 +14,13 @@ class MyNotesRepository(private var noteDao: MyNoteDao) {
     }
 
     @WorkerThread
-    suspend fun delete() {
-        noteDao.delete()
+    suspend fun update(note : MyNote) {
+        noteDao.update(note)
+    }
+
+    @WorkerThread
+    suspend fun delete(note : MyNote) {
+        noteDao.delete(note)
     }
 
     fun getAllNotes(): Flow<List<MyNote>> {

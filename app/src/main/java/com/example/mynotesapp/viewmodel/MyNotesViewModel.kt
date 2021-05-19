@@ -11,8 +11,12 @@ class MyNotesViewModel(private val notesRepository: MyNotesRepository) : ViewMod
         notesRepository.insert(note)
     }
 
-    fun delete() = viewModelScope.launch{
-        notesRepository.delete()
+    fun update(note : MyNote) = viewModelScope.launch {
+        notesRepository.update(note)
+    }
+
+    fun delete(note : MyNote) = viewModelScope.launch{
+        notesRepository.delete(note)
     }
 
     fun getAllNotes() : LiveData<List<MyNote>> = notesRepository.getAllNotes().asLiveData()

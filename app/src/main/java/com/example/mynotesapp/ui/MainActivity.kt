@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynotesapp.MyNotesApplication
 import com.example.mynotesapp.R
+import com.example.mynotesapp.entity.MyNote
 import com.example.mynotesapp.viewmodel.MyNotesViewModel
 import com.example.mynotesapp.viewmodel.MyNotesViewModelFactory
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val notesViewModel: MyNotesViewModel by viewModels {
         MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
     }
-    private lateinit var fab: ExtendedFloatingActionButton
+    private lateinit var fab: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +44,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun deleteNote(myNote : MyNote) {
+        notesViewModel.delete(myNote)
+    }
+
     private fun attachRecyclerView() {
         recyclerView = findViewById(R.id.recyclerView)
-        notesRecyclerAdapter = MyNotesRecyclerAdapter()
+        notesRecyclerAdapter = MyNotesRecyclerAdapter(this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = notesRecyclerAdapter
     }

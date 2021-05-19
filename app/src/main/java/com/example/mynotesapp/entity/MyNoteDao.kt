@@ -1,19 +1,19 @@
 package com.example.mynotesapp.entity
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MyNoteDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert
     suspend fun insert(note: MyNote)
 
-    @Query("DELETE FROM notes_table")
-    suspend fun delete()
+    @Update
+    suspend fun update(note : MyNote)
+
+    @Delete
+    suspend fun delete(note : MyNote)
 
     @Query("SELECT * FROM notes_table ORDER BY title ASC")
     fun getAllNotes(): Flow<List<MyNote>>

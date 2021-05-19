@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:id="@+id/recyclerView"/>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab"
@@ -21,6 +21,8 @@
         android:layout_marginBottom="20dp"
         android:textColorHint="@color/white"
         android:textAlignment="center"
-        android:text="@string/add_new_note"/>
+        android:src="@drawable/icon_add"
+        app:backgroundTint="@color/white"
+        android:contentDescription="@string/text_fab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

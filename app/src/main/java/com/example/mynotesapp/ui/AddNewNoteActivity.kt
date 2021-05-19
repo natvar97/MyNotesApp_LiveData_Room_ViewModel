@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mynotesapp.Constants
 import com.example.mynotesapp.MyNotesApplication
 import com.example.mynotesapp.R
 import com.example.mynotesapp.entity.MyNote
@@ -24,20 +25,46 @@ class AddNewNoteActivity : AppCompatActivity() {
         MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
     }
 
+    private var mEditNotes: MyNote? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_new_note_layout)
 
         init()
 
+        if (intent.hasExtra(Constants.EXTRA_DISH_DETAILS)) {
+            mEditNotes = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAILS)
+        }
+
+        mEditNotes?.let {
+            if (it.id != 0) {
+                etTitle.setText(mEditNotes!!.title)
+                etDescription.setText(mEditNotes!!.description)
+                etComment.setText(mEditNotes!!.comment)
+            }
+        }
+
         btnSave.setOnClickListener {
             if (checkConditions()) {
+                var noteId = 0
+
+                mEditNotes?.let {
+                    noteId = it.id
+                }
+
                 val myNote = MyNote(
                     etTitle.text.toString(),
                     etDescription.text.toString(),
-                    etComment.text.toString()
+                    etComment.text.toString(),
+                    noteId
                 )
-                myNotesViewModel.insert(myNote)
+
+                if (noteId == 0) {
+                    myNotesViewModel.insert(myNote)
+                } else {
+                    myNotesViewModel.update(myNote)
+                }
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
 

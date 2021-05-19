@@ -6,10 +6,6 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notes_table")
 data class MyNote(
-
-    @PrimaryKey(autoGenerate = true)
-    var id:Int = 0,
-
     @ColumnInfo(name = "title")
     var title: String,
 
@@ -17,5 +13,7 @@ data class MyNote(
     var description: String,
 
     @ColumnInfo(name = "comment")
-    var comment: String
+    var comment: String,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
 )

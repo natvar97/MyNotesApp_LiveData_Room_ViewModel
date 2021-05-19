@@ -2,11 +2,12 @@ package com.example.mynotesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mynotesapp.MyNotesApplication
 import com.example.mynotesapp.R
 import com.example.mynotesapp.viewmodel.MyNotesViewModel
 import com.example.mynotesapp.viewmodel.MyNotesViewModelFactory
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var notesRecyclerAdapter: MyNotesRecyclerAdapter
-    private lateinit var notesViewModel: MyNotesViewModel
+    private val notesViewModel: MyNotesViewModel by viewModels {
+        MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
+    }
     private lateinit var fab: ExtendedFloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,8 +27,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fab = findViewById(R.id.fab)
-        notesViewModel = ViewModelProvider(this, MyNotesViewModelFactory(application))
-            .get(MyNotesViewModel::class.java)
 
         attachRecyclerView()
 
@@ -34,7 +35,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         notesViewModel.getAllNotes().observe(this, Observer { notesList ->
-            notesRecyclerAdapter.saveData(notesList)
+            notesList?.let {
+                notesRecyclerAdapter.saveData(notesList)
+            }
         })
 
     }

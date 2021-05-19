@@ -11,6 +11,7 @@ abstract class MyNotesDatabase : RoomDatabase() {
     abstract fun noteDao(): MyNoteDao
 
     companion object {
+        @Volatile
         private var instance: MyNotesDatabase? = null
 
         fun getInstance(context: Context): MyNotesDatabase {

@@ -1,32 +1,25 @@
 package com.example.mynotesapp.repository
 
-import android.app.Application
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.mynotesapp.entity.MyNote
 import com.example.mynotesapp.entity.MyNoteDao
-import com.example.mynotesapp.entity.MyNotesDatabase
+import kotlinx.coroutines.flow.Flow
 
-class MyNotesRepository(application: Application) {
+class MyNotesRepository(private var noteDao: MyNoteDao) {
 
-    private var noteDao: MyNoteDao
-    private var allNotes: LiveData<List<MyNote>>
-    private val notesDatabase = MyNotesDatabase.getInstance(application)
-
-    init {
-        noteDao = notesDatabase.noteDao()
-        allNotes = notesDatabase.noteDao().getAllNotes()
-    }
-
-    fun insert(note: MyNote) {
+    @WorkerThread
+    suspend fun insert(note: MyNote) {
         noteDao.insert(note)
     }
 
-    fun delete() {
+    @WorkerThread
+    suspend fun delete() {
         noteDao.delete()
     }
 
-    fun getAllNotes(): LiveData<List<MyNote>> {
-        return allNotes
+    fun getAllNotes(): Flow<List<MyNote>> {
+        return noteDao.getAllNotes()
     }
 
 }

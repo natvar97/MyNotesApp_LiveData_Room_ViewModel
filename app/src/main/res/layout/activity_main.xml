@@ -15,14 +15,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fab"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_news"
         android:layout_marginBottom="20dp"
         android:textColorHint="@color/white"
         android:textAlignment="center"
         android:src="@drawable/icon_add"
         app:backgroundTint="@color/white"
         android:contentDescription="@string/text_fab" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_news"
+        android:background="@drawable/edittext_background"
+        android:text="Load News"
+        app:cornerRadius="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/fab"
+        app:layout_constraintStart_toEndOf="@id/fab"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fab" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

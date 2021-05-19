@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mynotesapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MyNotesApplication"
         android:allowBackup="true"
@@ -10,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyNotesApp">
-        <activity android:name=".ui.AddNewNoteActivity"></activity>
+        <activity android:name=".ui.NewsPageActivity"></activity>
+        <activity android:name=".ui.AddNewNoteActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

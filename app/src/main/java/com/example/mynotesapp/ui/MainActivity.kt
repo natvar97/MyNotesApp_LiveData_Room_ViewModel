@@ -2,6 +2,7 @@ package com.example.mynotesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -23,17 +24,22 @@ class MainActivity : AppCompatActivity() {
         MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
     }
     private lateinit var fab: FloatingActionButton
+    private lateinit var btnNews: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fab = findViewById(R.id.fab)
-
+        btnNews = findViewById(R.id.btn_news)
         attachRecyclerView()
 
         fab.setOnClickListener {
             openAddNewNotePage()
+        }
+
+        btnNews.setOnClickListener {
+            openNewsPage()
         }
 
         notesViewModel.getAllNotes().observe(this, Observer { notesList ->
@@ -44,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun deleteNote(myNote : MyNote) {
+    fun deleteNote(myNote: MyNote) {
         notesViewModel.delete(myNote)
     }
 
@@ -58,6 +64,10 @@ class MainActivity : AppCompatActivity() {
     private fun openAddNewNotePage() {
         val intent = Intent(this, AddNewNoteActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun openNewsPage() {
+        startActivity(Intent(this, NewsPageActivity::class.java))
     }
 
 

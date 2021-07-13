@@ -2,6 +2,7 @@ package com.example.mynotesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    fun visibleTvNoDataFound() {
+        mBinding.tvDataNotFound.visibility = View.VISIBLE
     }
 
     fun deleteNote(myNote: MyNote) {

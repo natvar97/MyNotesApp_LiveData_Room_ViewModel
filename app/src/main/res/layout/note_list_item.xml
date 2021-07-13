@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    app:cardElevation="5dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,32 +17,33 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:maxLines="1"
+            android:maxLines="2"
             android:padding="5dp"
             android:text="@string/hint_title"
             android:textSize="24sp"
+            android:maxWidth="200dp"
+            android:ellipsize="end"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/iv_delete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:src="@drawable/icon_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_title" />
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/iv_edit"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="5dp"-->
+<!--            android:src="@drawable/icon_edit"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tv_title" />-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/icon_delete"
-            app:layout_constraintEnd_toStartOf="@id/iv_edit"
-            app:layout_constraintTop_toTopOf="@id/tv_title" />
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/iv_delete"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:src="@drawable/icon_delete"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/iv_edit"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tv_title" />-->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_description"
@@ -51,7 +53,8 @@
             android:text="@string/hint_description"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@id/iv_edit"
+            android:maxWidth="200dp"
+            android:ellipsize="end"
             app:layout_constraintStart_toStartOf="@id/tv_title"
             app:layout_constraintTop_toBottomOf="@id/tv_title" />
 
@@ -64,11 +67,25 @@
             android:text="@string/hint_comment"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:maxWidth="200dp"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@id/tv_description"
             app:layout_constraintStart_toStartOf="@id/tv_description"
             app:layout_constraintTop_toBottomOf="@id/tv_description" />
 
-<!--        <View-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_checked"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/icon_circle_check"
+            app:tint="@color/teal_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <!--        <View-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="0.5dp"-->
 <!--            android:layout_marginTop="10dp"-->

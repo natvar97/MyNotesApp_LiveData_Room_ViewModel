@@ -30,7 +30,8 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
         val tvTitle = itemView.tvTitle
         val tvDescription = itemView.tvDescription
         val tvComment = itemView.tvComment
-//        val ivEdit = itemView.ivEdit
+
+        //        val ivEdit = itemView.ivEdit
 //        val ivDelete = itemView.ivDelete
         val ivChecked = itemView.ivChecked
 
@@ -121,6 +122,7 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
                                         mSelectedItems.clear()
                                     } else {
                                         isSelectAll = true
+                                        mSelectedItems.clear()
                                         mSelectedItems.addAll(notesList)
                                     }
                                     listItemViewModel.setListSize("${mSelectedItems.size}")

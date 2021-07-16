@@ -6,6 +6,9 @@ import android.view.View
 import android.widget.Button
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.Bindable
+import androidx.databinding.BindingMethod
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,26 +23,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var recyclerView: RecyclerView
     private lateinit var notesRecyclerAdapter: MyNotesRecyclerAdapter
     private val notesViewModel: MyNotesViewModel by viewModels {
         MyNotesViewModelFactory((application!! as MyNotesApplication).notesRepository)
     }
 
-    private lateinit var mBinding : ActivityMainBinding
-//    private lateinit var fab: FloatingActionButton
-//    private lateinit var btnNews: Button
+    private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
 
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-//        fab = findViewById(R.id.fab)
-//        btnNews = findViewById(R.id.btn_news)
-        attachRecyclerView()
 
         mBinding.fab.setOnClickListener {
             openAddNewNotePage()
@@ -49,12 +44,15 @@ class MainActivity : AppCompatActivity() {
             openNewsPage()
         }
 
+        notesRecyclerAdapter = MyNotesRecyclerAdapter(this)
+
         notesViewModel.getAllNotes().observe(this, Observer { notesList ->
             notesList?.let {
                 notesRecyclerAdapter.saveData(notesList)
             }
         })
 
+        mBinding.noteAdapter = notesRecyclerAdapter
     }
 
     fun visibleTvNoDataFound() {
@@ -65,20 +63,13 @@ class MainActivity : AppCompatActivity() {
         notesViewModel.delete(myNote)
     }
 
-    private fun attachRecyclerView() {
-//        recyclerView = findViewById(R.id.recyclerView)
-        notesRecyclerAdapter = MyNotesRecyclerAdapter(this)
-        mBinding.recyclerView.layoutManager = LinearLayoutManager(this)
-        mBinding.recyclerView.adapter = notesRecyclerAdapter
+    fun openNewsPage() {
+        startActivity(Intent(this, NewsPageActivity::class.java))
     }
 
-    private fun openAddNewNotePage() {
+    fun openAddNewNotePage() {
         val intent = Intent(this, AddNewNoteActivity::class.java)
         startActivity(intent)
-    }
-
-    private fun openNewsPage() {
-        startActivity(Intent(this, NewsPageActivity::class.java))
     }
 
 

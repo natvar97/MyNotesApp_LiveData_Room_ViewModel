@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -27,24 +28,22 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
 
     inner class NotesViewHolder(itemView: NoteListItemBinding) :
         RecyclerView.ViewHolder(itemView.root) {
-        val tvTitle = itemView.tvTitle
-        val tvDescription = itemView.tvDescription
-        val tvComment = itemView.tvComment
 
-        //        val ivEdit = itemView.ivEdit
-//        val ivDelete = itemView.ivDelete
-        val ivChecked = itemView.ivChecked
+        var itemBinding = itemView
 
         fun bind(note: MyNote) {
-            tvTitle.text = note.title
-            tvDescription.text = note.description
-            tvComment.text = note.comment
+            itemBinding.note = note
         }
+
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
-        val view = NoteListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view: NoteListItemBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.note_list_item,
+            parent,
+            false
+        )
 
         listItemViewModel = ViewModelProvider(
             activity as FragmentActivity,
@@ -63,18 +62,6 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
             i done edit by opening the edit using on click
             and delete using multiple item delete in notes
          */
-
-//        holder.ivDelete.setOnClickListener {
-//            if (activity is MainActivity) {
-//                activity.deleteNote(note)
-//            }
-//        }
-//
-//        holder.ivEdit.setOnClickListener {
-//            val intent = Intent(activity, AddNewNoteActivity::class.java)
-//            intent.putExtra(Constants.EXTRA_DISH_DETAILS, note)
-//            activity.startActivity(intent)
-//        }
 
         holder.itemView.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
@@ -163,9 +150,9 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
         }
 
         if (isSelectAll) {
-            holder.ivChecked.visibility = View.VISIBLE
+            holder.itemBinding.ivChecked.visibility = View.VISIBLE
         } else {
-            holder.ivChecked.visibility = View.GONE
+            holder.itemBinding.ivChecked.visibility = View.GONE
         }
 
     }
@@ -173,11 +160,11 @@ class MyNotesRecyclerAdapter(private val activity: Activity) :
     private fun clickItem(holder: MyNotesRecyclerAdapter.NotesViewHolder) {
         val selectedItem = notesList.get(holder.adapterPosition)
 
-        if (holder.ivChecked.visibility == View.GONE) {
-            holder.ivChecked.visibility = View.VISIBLE
+        if (holder.itemBinding.ivChecked.visibility == View.GONE) {
+            holder.itemBinding.ivChecked.visibility = View.VISIBLE
             mSelectedItems.add(selectedItem)
         } else {
-            holder.ivChecked.visibility = View.GONE
+            holder.itemBinding.ivChecked.visibility = View.GONE
             mSelectedItems.remove(selectedItem)
         }
 

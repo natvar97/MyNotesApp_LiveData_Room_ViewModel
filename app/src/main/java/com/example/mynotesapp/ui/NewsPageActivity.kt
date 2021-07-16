@@ -2,6 +2,7 @@ package com.example.mynotesapp.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,17 +20,13 @@ class NewsPageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.news_page_layout)
 
-        mBinding = NewsPageLayoutBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
+        mBinding = DataBindingUtil.setContentView(this, R.layout.news_page_layout)
 
         newsViewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
 
         newsRecyclerView = findViewById(R.id.newsRecyclerView)
         newsPageAdapter = NewsPageAdapter()
-        newsRecyclerView.layoutManager = LinearLayoutManager(this)
-        newsRecyclerView.adapter = newsPageAdapter
         newsViewModel.getNews()
 
         mBinding.srlNotes.setOnRefreshListener {
@@ -41,6 +38,7 @@ class NewsPageActivity : AppCompatActivity() {
         newsViewModel.getAllNews.observe(this, Observer {
             newsPageAdapter.setData(it)
         })
+        mBinding.newsAdapter = newsPageAdapter
 
     }
 }
